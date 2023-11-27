@@ -15,12 +15,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<dynamic> users = [];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rest API CALL'),
       ),
+
+
 
       floatingActionButton: FloatingActionButton(
         onPressed: fetchUsers,
@@ -30,80 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void fetchUsers() async{
     print('fetchUsers called');
-    const url = 'https://randomuser.me/api/?results=1';
+    const url = 'https://randomuser.me/api/?results=10';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
-
-  }
-}
-
-
-
-
-
-
-
-
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-
-
-
-//
-class _MyAppState extends State<MyApp> {
-
-
-
-  //now here we will define a function that will get data from Api
-  // we will use json placeholder
-  //https://jsonplaceholder.typicode.com/comments
-
-  var api="https://jsonplaceholder.typicode.com/comments";
-
-//now creat function
-
-  var data = [];
-
-  void getDataFromApi()async{
-    var response =await http.get(Uri.parse(api));
-
-    data=jsonDecode(response.body);
+    final body = response.body;
+    final json = jsonDecode(body);
     setState(() {
-
+      users = json['result'];
     });
+    print('fetchUsers completed');
 
-  }
-
-
-
-  @override
-
-  void initState(){
-    super.initState();
-    getDataFromApi();
-  }
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Api in Flutter"),
-
-      ),
-      body: ListView.builder(
-          itemCount: data.length ,
-          itemBuilder: (context,index){
-            return ListTile(
-              title: Text(data[index]["name"]),
-              subtitle: Text(data[index]["email"]),
-            );
-
-          }),
-    );
   }
 }
+
