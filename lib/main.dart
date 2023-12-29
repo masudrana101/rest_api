@@ -14,15 +14,20 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('Demo API in Flutter'),
         ),
+
+
         body: FutureBuilder<List<dynamic>>(
           // Specify the type of data FutureBuilder expects
+
           future: fetchPosts(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
-            } else if (snapshot.hasError) {
+            }
+            else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
-            } else if (snapshot.hasData) {
+            }
+            else if (snapshot.hasData) {
               // Display the data in a ListView, for example
               return ListView.builder(
                 itemCount: snapshot.data!.length,
@@ -33,15 +38,22 @@ class MyApp extends StatelessWidget {
                   );
                 },
               );
-            } else {
+            }
+            else {
               return Text('No data');
             }
           },
         ),
+
+
+
+
+
       ),
     );
   }
 }
+
 
 Future<List<dynamic>> fetchPosts() async {
   final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
