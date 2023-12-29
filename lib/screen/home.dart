@@ -1,12 +1,6 @@
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-
-
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,8 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Rest API CALL'),
       ),
-
-
 
       floatingActionButton: FloatingActionButton(
         onPressed: fetchUsers,
